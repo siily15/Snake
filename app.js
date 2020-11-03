@@ -9,7 +9,7 @@ function convertToPixles(n) {
 }
 
 function draw() {
-    uptadeLocation()
+    uptadeSnakeLocation()
     drawSnake()
     setTimeout(() => {
         window.requestAnimationFrame(draw)
@@ -19,6 +19,7 @@ function draw() {
 function drawSnake() {
     context.clearRect(0, 0, canvas.width, canvas.height)
 
+    context.fillStyle = 'black'
     context.strokeStyle = 'white'
     context.lineWidth = 1
 
@@ -28,7 +29,7 @@ function drawSnake() {
     })
 }
 
-function uptadeLocation() {
+function uptadeSnakeLocation() {
     let newX, newY
 
     switch (direction) {
@@ -50,8 +51,29 @@ function uptadeLocation() {
             break
 
     }
+    if (JSON.stringify[newX, newY] != JSON.stringify(foodCoordinates )) {
+
+    }
+
     snakeCoordinates.unshift([newX, newY])
     snakeCoordinates.pop()
+}
+
+function drawFood() {
+    context.beginPath()
+    context.arc(convertToPixles(foodCoordinates[0]) + 4, convertToPixles(foodCoordinates[1]) + 4, 4, 0, Math.PI * 2, true)
+    context.fillStyle = 'red'
+    context.fill()
+}
+
+function uptadeFoodLocation () {
+    let x, y
+
+    do {
+        x = Math.floor(Math.round() * 80)
+        y = Math.floor(Math.round() * 80)
+    } while ( snakeCoordinates.includes([c, y]) );
+    return x, y
 }
 
 let snakeCoordinates = [
@@ -60,16 +82,20 @@ let snakeCoordinates = [
     [39, 41],
     [38, 41]
 ]
+let foodCoordinates = uptadeFoodCoordinates()
 
 const canvas = document.getElementById('gameBoardCanvas')
 const context = canvas.getContext('2d')
 let direction = 'up'
-let gameSpeed = 300
+let gameSpeed = 90
 
 document.addEventListener('keydown', e => {
     switch (e.key) {
         case 'ArrowUp':
+            if (direction == 'left' / direction == 'right'){
             direction = 'up'
+            } else if (direction == 'down')
+                isGameOver = true
             break
         case 'ArrowDown':
             direction = 'down'
